@@ -1,7 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import Heart from "../Image/Heart.svg";
-import Cart from "../Image/Cart.svg";
 
 const CardContainer = styled.div`
   border: 1px solid #000;
@@ -32,60 +30,14 @@ const AddToCartButton = styled.button`
   margin-top: 4px;
 `;
 
-const ProductCard = () => {
+const ProductCard = (props) => {
   return (
     <>
       <CardContainer>
-        <img src={Heart}/>
+        <img src={props.imagemProduto}/>
         <CardInfo>
-          <p>Produto</p>
-          <p>Preço</p>
-          <AddToCartButton>Adicionar ao carrinho</AddToCartButton>
-        </CardInfo>
-      </CardContainer>
-
-      <CardContainer>
-        <img src={Cart} />
-        <CardInfo>
-          <p>Produto</p>
-          <p>Preço</p>
-          <AddToCartButton>Adicionar ao carrinho</AddToCartButton>
-        </CardInfo>
-      </CardContainer>
-
-      <CardContainer>
-        <img src={Heart} />
-        <CardInfo>
-          <p>Produto</p>
-          <p>Preço</p>
-          <AddToCartButton>Adicionar ao carrinho</AddToCartButton>
-        </CardInfo>
-      </CardContainer>
-
-
-      <CardContainer>
-        <img src={Cart} />
-        <CardInfo>
-          <p>Produto</p>
-          <p>Preço</p>
-          <AddToCartButton>Adicionar ao carrinho</AddToCartButton>
-        </CardInfo>
-      </CardContainer>
-
-      <CardContainer>
-        <img src={Heart} />
-        <CardInfo>
-          <p>Produto</p>
-          <p>Preço</p>
-          <AddToCartButton>Adicionar ao carrinho</AddToCartButton>
-        </CardInfo>
-      </CardContainer>
-
-      <CardContainer>
-        <img src={Cart} />
-        <CardInfo>
-          <p>Produto</p>
-          <p>Preço</p>
+          <p>{props.nomeProduto}</p>
+          <p>{props.precoProduto}</p>
           <AddToCartButton>Adicionar ao carrinho</AddToCartButton>
         </CardInfo>
       </CardContainer>
