@@ -1,25 +1,183 @@
 import React from "react";
 import styled from "styled-components";
 import Cart from "./Cart/Cart";
-import Filters from "./Filters/Filters";
-import Products from "./Products/Products";
-import ProductCard from "./Products/ProductCard";
+import ProductCard from "./Products/Produtos";
+import Filtros from "./Filters/Filtros";
+import {
+  SecaoConteudoGeral,
+  ConteudoApp,
+  HeaderQtdOrdProdutos,
+  GridComProdutos,
+} from "./AppStyled";
 
-const AppContainer = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
+const ProductsContainer = styled.div``;
 
-  gap: 8px;
-`;
+const arrayProdutos = [
+  {
+    imagem:
+      "https://images.tcdn.com.br/img/img_prod/688929/boneco_senhor_cabeca_de_batata_buzz_lightyear_toy_story_brinquedo_hasbro_33408129_2_20200607181238.jpg",
+    nome: "Boneco Articulado Batata Lightyear",
+    preco: 100,
+  },
+  {
+    imagem:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSMOkofYDTbuHDfmXjGtVkP39KHN7guwjOUEjRFOBJeDuRTOAo8rXcPotkNdWeP9ldC7qSuIY&usqp=CAc",
+    nome: "Boneco Buzz Lightyer baby",
+    preco: 70,
+  },
+  {
+    imagem:
+      "https://http2.mlstatic.com/D_NQ_NP_798428-MLB31123679011_062019-O.jpg",
+    nome: "Boneco Zorg",
+    preco: 90,
+  },
+  {
+    imagem: "https://cf.shopee.com.br/file/667c76c4d7bbe72d1745fd1935d79f08",
+    nome: "Zorg vs Buzz - salve o ET",
+    preco: 130,
+  },
+  {
+    imagem:
+      "https://http2.mlstatic.com/D_NQ_NP_731462-MLB42825854896_072020-O.jpg",
+    nome: "Alien",
+    preco: 50,
+  },
+  {
+    imagem: "https://m.media-amazon.com/images/I/81Zi+nq0jYL._AC_SL1500_.jpg",
+    nome: "Buzz Lightyear com Navinha",
+    preco: 150,
+  },
+];
 
 export class App extends React.Component {
+  state = {
+    produtos: arrayProdutos,
+    inputValorMin: 0,
+    inputValorMax: 1000,
+    inputNomeProduto: "",
+    caroBarato: "",
+  };
+
+
+  OnChangeValorMin = (event) => {
+    const valorProduto = event.target.value;
+    const filtroValores = arrayProdutos.filter(
+      (valor) => valor.preco >= valorProduto  && valorProduto <= this.state.inputValorMax
+    );
+
+    this.setState({
+      inputValorMin: valorProduto,
+      produtos: filtroValores,
+    });
+  };
+
+  OnChangeValorMax = (event) => {
+    const valorProduto = event.target.value;
+    const filtroValores = arrayProdutos.filter(
+      (valor) => valor.preco <= valorProduto && valor.preco >= this.state.inputValorMin
+    );
+    this.setState({
+      inputValorMax: valorProduto,
+      produtos: valorProduto > 0 ? filtroValores : arrayProdutos,
+    });
+  };
+
+  
+  onChangeCaroBarato = (event) => {
+    this.setState({ caroBarato: event.target.value });
+  };
+
+  OnChangeNomeProduto = (event) => {
+    const nomeProduto = event.target.value;
+    // debugger
+    const produtosFiltrados = arrayProdutos.filter((produto) =>
+      produto.nome.toLocaleLowerCase().includes(nomeProduto.toLocaleLowerCase())
+    );
+    this.setState({
+      inputNomeProduto: nomeProduto,
+      produtos: produtosFiltrados,
+    });
+
+    // this.state.produtos.filter((produto) => {
+    //   if (
+    //     nomeProduto === "" &&
+    //     this.state.inputValorMax === "" &&
+    //     this.state.inputValorMin === ""
+    //   ) {
+    //     return produto;
+    //   } else if (this.state.inputNomeProduto === produto.nome) {
+    //     return produto;
+    //   }
+    // });
+  };
+
+  ordenaCrescente() {
+    this.state.produtos.sort((a, b) => {
+      if (a.preco > b.preco) {
+        return 1;
+      }
+      if (a.preco < b.preco) {
+        return -1;
+      }
+      // a must be equal to b
+      return 0;
+    });
+  }
+
+  ordenaDecrescente() {
+    this.state.produtos.sort((a, b) => {
+      if (a.preco < b.preco) {
+        return 1;
+      }
+      if (a.preco > b.preco) {
+        return -1;
+      }
+      // a must be equal to b
+      return 0;
+    });
+  }
+
   render() {
     return (
-      <AppContainer>
-        <Filters />
-        <Products/>
+      <ConteudoApp>
+        <Filtros
+          valorMinimo={this.state.inputValorMin}
+          valorMaximo={this.state.inputValorMax}
+          nomeProduto={this.state.inputNomeProduto}
+          OnChangeValorMin={this.OnChangeValorMin}
+          OnChangeValorMax={this.OnChangeValorMax}
+          OnChangeNomeProduto={this.OnChangeNomeProduto}
+        />
+
+        <SecaoConteudoGeral>
+          <HeaderQtdOrdProdutos>
+            <p>Quantidade de produtos: {this.state.produtos.length}</p>
+            <label>
+              Ordenação:
+              <select
+                value={this.state.caroBarato}
+                onChange={this.onChangeCaroBarato}
+              >
+                <option onClick={this.ordenaCrescente}>Caro</option>
+                <option onClick={this.ordenaDecrescente}>Barato</option>
+              </select>
+            </label>
+          </HeaderQtdOrdProdutos>
+
+          <GridComProdutos>
+            {this.state.produtos.map((produto) => {
+              return (
+                <ProductCard
+                  imagemProduto={produto.imagem}
+                  nomeProduto={produto.nome}
+                  precoProduto={produto.preco}
+                />
+              );
+            })}
+          </GridComProdutos>
+        </SecaoConteudoGeral>
         <Cart />
-      </AppContainer>
+      </ConteudoApp>
     );
   }
 }
