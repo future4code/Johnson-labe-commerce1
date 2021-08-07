@@ -49,6 +49,21 @@ const arrayProdutos = [
   },
 ];
 
+const ProductsHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10vh 2vh 2vh;
+
+`;
+
+const ProductsGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding: 16px;
+`;
+
 export class App extends React.Component {
   state = {
     produtos: arrayProdutos,
@@ -138,6 +153,16 @@ export class App extends React.Component {
   }
 
   render() {
+
+    const produtosFiltrados = this.state.produtos.filter(produto =>{
+
+      if(this.state.inputNomeProduto === '' && this.state.inputValorMax === '' && this.state.inputValorMin === ''){
+        return produto
+      }else if(this.state.inputNomeProduto === produto.nome){
+        return produto
+      }
+    })
+
     return (
       <ConteudoApp>
         <Filtros
