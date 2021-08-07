@@ -45,3 +45,10 @@ export const InputSearch = styled.input`
   box-shadow: 2px 2px 2px 0 rgba(0, 0, 0, 0.2),
     -2px -2px 2px 0 rgba(0, 0, 0, 0.1);
 `;
+
+export const SeparaIntens = styled.div`
+  border: 1px solid #a1a1a1;
+  width: 95%;
+  margin: 1vh 0;
+
+`
