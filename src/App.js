@@ -68,8 +68,8 @@ export class App extends React.Component {
   
   state = {
     produtos: arrayProdutos,
-    inputValorMin: 0,
-    inputValorMax: 1000,
+    inputValorMin: "",
+    inputValorMax: "",
     inputNomeProduto: "",
     caroBarato: "",
   };
@@ -97,19 +97,19 @@ export class App extends React.Component {
 // };     
 //fim do carrinho 
 
-  OnChangeValorMin = (event) => {
-    const valorProduto = event.target.value;
-    const filtroValores = arrayProdutos.filter(
-      (valor) => valor.preco >= valorProduto  && valorProduto <= this.state.inputValorMax
-    );
+  // OnChangeValorMin = (event) => {
+  //   const valorProduto = event.target.value;
+  //   const filtroValores = arrayProdutos.filter(
+  //     (valor) => valor.preco >= valorProduto  && valorProduto <= this.state.inputValorMax
+  //   );
 
-    this.setState({
-      inputValorMin: valorProduto,
-      produtos: filtroValores,
-    });
-  };
+  //   this.setState({
+  //     inputValorMin: valorProduto,
+  //     produtos: valorProduto < 0 ? filtroValores : arrayProdutos,
+  //   });
+  // };
 
-  OnChangeValorMax = (event) => {
+  onChangeRangeValor = (event) => {
     const valorProduto = event.target.value;
     const filtroValores = arrayProdutos.filter(
       (valor) => valor.preco <= valorProduto && valor.preco >= this.state.inputValorMin
@@ -136,17 +136,6 @@ export class App extends React.Component {
       produtos: produtosFiltrados,
     });
 
-    // this.state.produtos.filter((produto) => {
-    //   if (
-    //     nomeProduto === "" &&
-    //     this.state.inputValorMax === "" &&
-    //     this.state.inputValorMin === ""
-    //   ) {
-    //     return produto;
-    //   } else if (this.state.inputNomeProduto === produto.nome) {
-    //     return produto;
-    //   }
-    // });
   };
 
   ordenaCrescente() {
@@ -178,14 +167,7 @@ export class App extends React.Component {
   render() {
     
 
-    const produtosFiltrados = this.state.produtos.filter(produto =>{
 
-      if(this.state.inputNomeProduto === '' && this.state.inputValorMax === '' && this.state.inputValorMin === ''){
-        return produto
-      }else if(this.state.inputNomeProduto === produto.nome){
-        return produto
-      }
-    })
 
         return (
           
@@ -194,8 +176,7 @@ export class App extends React.Component {
           valorMinimo={this.state.inputValorMin}
           valorMaximo={this.state.inputValorMax}
           nomeProduto={this.state.inputNomeProduto}
-          OnChangeValorMin={this.OnChangeValorMin}
-          OnChangeValorMax={this.OnChangeValorMax}
+          onChangeRangeValor={this.onChangeRangeValor}
           OnChangeNomeProduto={this.OnChangeNomeProduto}
         />
 
