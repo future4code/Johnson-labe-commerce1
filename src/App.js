@@ -102,9 +102,9 @@ export class App extends React.Component {
     const caroBarato = event.target.value
     this.setState({ caroBarato });
 
-    if(caroBarato === "Barato") {
+    if(caroBarato === "Maior para menor") {
       this.ordenaCrescente()
-    } else if(caroBarato === 'Caro'){
+    } else if(caroBarato === 'Menor para maior'){
       this.ordenaDecrescente()
     }else{
       this.ordenaNenhum()
@@ -152,14 +152,14 @@ console.log('arrayProdutos',arrayProdutos[0].nome)
           <HeaderQtdOrdProdutos>
             <p>Quantidade de produtos: {this.state.produtos.length}</p>
             <label>
-              Ordenação:
+              Ordenar preços: 
               <Select
                 value={this.state.caroBarato}
                 onChange={this.onChangeCaroBarato}
               >
                 <option >Nenhum</option>
-                <option >Caro</option>
-                <option >Barato</option>
+                <option >Maior para menor</option>
+                <option >Menor para maior</option>
               </Select>
             </label>
           </HeaderQtdOrdProdutos>
