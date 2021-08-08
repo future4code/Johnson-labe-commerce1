@@ -1,5 +1,10 @@
 import React from "react";
-import { FilterContainer, InputFilter, InputSearch,SeparaIntens } from "./StyledFiltros";
+import {
+  FilterContainer,
+  InputFilter,
+  InputSearch,
+  SeparaIntens,
+} from "./StyledFiltros";
 
 export class Filtros extends React.Component {
   render() {
@@ -10,21 +15,15 @@ export class Filtros extends React.Component {
 
           <InputFilter>
             <input
-              placeholder="Valor mínimo"
-              type="number"
-              value={this.props.valorMinimo}
-              onChange={this.props.OnChangeValorMin}
-            />
-          </InputFilter>
-
-          <InputFilter>
-            <input
-              placeholder="Valor máximo"
+              type="range"
+              min="50"
+              max="150"
+              step="any"
               value={this.props.valorMaximo}
-              onChange={this.props.OnChangeValorMax}
+              onChange={this.props.onChangeRangeValor}
             />
           </InputFilter>
-          <SeparaIntens/>
+          <SeparaIntens />
           <InputFilter>
             <InputSearch
               placeholder="Produto"
