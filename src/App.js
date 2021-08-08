@@ -8,6 +8,7 @@ import {
   ConteudoApp,
   HeaderQtdOrdProdutos,
   GridComProdutos,
+  Select,
 } from "./AppStyled";
 
 const ProductsContainer = styled.div``;
@@ -54,7 +55,6 @@ const ProductsHeader = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 10vh 2vh 2vh;
-
 `;
 
 const ProductsGrid = styled.div`
@@ -66,40 +66,23 @@ const ProductsGrid = styled.div`
 
 export class App extends React.Component {
   state = {
-    produtos: arrayProdutos,
+    produtos: [...arrayProdutos],
     inputValorMin: "",
     inputValorMax: "",
     inputNomeProduto: "",
     caroBarato: "",
   };
 
-
-  // OnChangeValorMin = (event) => {
-  //   const valorProduto = event.target.value;
-  //   const filtroValores = arrayProdutos.filter(
-  //     (valor) => valor.preco >= valorProduto  && valorProduto <= this.state.inputValorMax
-  //   );
-
-  //   this.setState({
-  //     inputValorMin: valorProduto,
-  //     produtos: valorProduto < 0 ? filtroValores : arrayProdutos,
-  //   });
-  // };
-
   onChangeRangeValor = (event) => {
     const valorProduto = event.target.value;
     const filtroValores = arrayProdutos.filter(
-      (valor) => valor.preco <= valorProduto && valor.preco >= this.state.inputValorMin
+      (valor) =>
+        valor.preco <= valorProduto && valor.preco >= this.state.inputValorMin
     );
     this.setState({
       inputValorMax: valorProduto,
       produtos: valorProduto > 0 ? filtroValores : arrayProdutos,
     });
-  };
-
-  
-  onChangeCaroBarato = (event) => {
-    this.setState({ caroBarato: event.target.value });
   };
 
   OnChangeNomeProduto = (event) => {
@@ -112,21 +95,32 @@ export class App extends React.Component {
       inputNomeProduto: nomeProduto,
       produtos: produtosFiltrados,
     });
+  };
+
+
+  onChangeCaroBarato = (event) => {
+    const caroBarato = event.target.value
+    this.setState({ caroBarato });
+
+    if(caroBarato === "Barato") {
+      this.ordenaCrescente()
+    } else if(caroBarato === 'Caro'){
+      this.ordenaDecrescente()
+    }else{
+      this.ordenaNenhum()
+    }
 
   };
 
+  ordenaNenhum(){
+
+    return this.setState({produtos:arrayProdutos})
+
+   }
+
   ordenaCrescente() {
-    this.state.produtos.sort((a, b) => {
-      if (a.preco > b.preco) {
-        return 1;
-      }
-      if (a.preco < b.preco) {
-        return -1;
-      }
-      // a must be equal to b
-      return 0;
-    });
-  }
+    return this.state.produtos.sort((a, b) => a.preco - b.preco);  
+    }
 
   ordenaDecrescente() {
     this.state.produtos.sort((a, b) => {
@@ -136,14 +130,13 @@ export class App extends React.Component {
       if (a.preco > b.preco) {
         return -1;
       }
-      // a must be equal to b
       return 0;
     });
   }
 
+
   render() {
-
-
+console.log('arrayProdutos',arrayProdutos[0].nome)
 
     return (
       <ConteudoApp>
@@ -160,13 +153,14 @@ export class App extends React.Component {
             <p>Quantidade de produtos: {this.state.produtos.length}</p>
             <label>
               Ordenação:
-              <select
+              <Select
                 value={this.state.caroBarato}
                 onChange={this.onChangeCaroBarato}
               >
-                <option onClick={this.ordenaCrescente}>Caro</option>
-                <option onClick={this.ordenaDecrescente}>Barato</option>
-              </select>
+                <option >Nenhum</option>
+                <option >Caro</option>
+                <option >Barato</option>
+              </Select>
             </label>
           </HeaderQtdOrdProdutos>
 

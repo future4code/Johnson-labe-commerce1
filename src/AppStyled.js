@@ -22,3 +22,9 @@ export const GridComProdutos = styled.div`
   gap: 16px;
   padding: 16px;
 `;
+
+export const Select = styled.select`
+  
+  width: 10vw;
+
+`
