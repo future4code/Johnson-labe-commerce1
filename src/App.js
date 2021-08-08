@@ -65,6 +65,7 @@ const ProductsGrid = styled.div`
 `;
 
 export class App extends React.Component {
+  
   state = {
     produtos: arrayProdutos,
     inputValorMin: 0,
@@ -73,6 +74,28 @@ export class App extends React.Component {
     caroBarato: "",
   };
 
+  // carrinho
+//   Carrinho = (itensCarrinho, setItensCarrinho) =>{ 
+//   onAdd = (produto) =>{
+//     const produtoExistente = itensCarrinho.find(x =>x.id === produto.id);
+//     if(produtoExistente){
+//       setItensCarrinho(itensCarrinho.map(x => x.id === produto.id ? {...produtoExistente, qtd: produtoExistente.qtd +1} : x)
+//       ); 
+//     } else{
+//       setItensCarrinho([...itensCarrinho, {...produto, qtd: 1} ])
+//     } 
+//   };
+//   onRemover = (produto) =>{
+//     const produtoExistente = itensCarrinho.find((x)=> x.id === produto.id);
+//     if (produtoExistente.qtd === 1){
+//       setItensCarrinho(itensCarrinho.filter((x) => x.id !== produto.id));
+//     }else{
+//       setItensCarrinho(itensCarrinho.map(x => x.id === produto.id ? {...produtoExistente, qtd: produtoExistente.qtd - 1} : x)
+//       );
+      
+//     }}
+// };     
+//fim do carrinho 
 
   OnChangeValorMin = (event) => {
     const valorProduto = event.target.value;
@@ -153,6 +176,7 @@ export class App extends React.Component {
   }
 
   render() {
+    
 
     const produtosFiltrados = this.state.produtos.filter(produto =>{
 
@@ -163,7 +187,8 @@ export class App extends React.Component {
       }
     })
 
-    return (
+        return (
+          
       <ConteudoApp>
         <Filtros
           valorMinimo={this.state.inputValorMin}
@@ -201,8 +226,9 @@ export class App extends React.Component {
             })}
           </GridComProdutos>
         </SecaoConteudoGeral>
-        <Cart />
-      </ConteudoApp>
+        {/* <Cart onAdd={onAdd} onRemover={onRemover} itensCarrinho={Carrinho}></Cart>  //carrinho                */}
+        <Cart/>          
+      </ConteudoApp> 
     );
   }
 }
