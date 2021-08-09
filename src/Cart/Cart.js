@@ -2,7 +2,7 @@ import { Container, ProductAll, ProductTotal } from "./CartStyled";
 import CartIcon from "../Image/Cart.svg";
 
 const ClickCart = () => {
-  alert(`HÁ! Clicou né?\nMas nem funciona\nhahahahaha`);
+  alert(`Houve um clique no botão, mas `);
 };
 
 function Cart() {
