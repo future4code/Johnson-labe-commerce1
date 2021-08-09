@@ -59,6 +59,7 @@ const arrayProdutos = [
 ];
 
 export class App extends React.Component {
+  
   state = {
     produtos: [...arrayProdutos],
     inputValorMin: "",
@@ -66,6 +67,43 @@ export class App extends React.Component {
     inputNomeProduto: "",
     caroBarato: "",
   };
+
+
+  // carrinho
+//   Carrinho = (itensCarrinho, setItensCarrinho) =>{ 
+//   onAdd = (produto) =>{
+//     const produtoExistente = itensCarrinho.find(x =>x.id === produto.id);
+//     if(produtoExistente){
+//       setItensCarrinho(itensCarrinho.map(x => x.id === produto.id ? {...produtoExistente, qtd: produtoExistente.qtd +1} : x)
+//       ); 
+//     } else{
+//       setItensCarrinho([...itensCarrinho, {...produto, qtd: 1} ])
+//     } 
+//   };
+//   onRemover = (produto) =>{
+//     const produtoExistente = itensCarrinho.find((x)=> x.id === produto.id);
+//     if (produtoExistente.qtd === 1){
+//       setItensCarrinho(itensCarrinho.filter((x) => x.id !== produto.id));
+//     }else{
+//       setItensCarrinho(itensCarrinho.map(x => x.id === produto.id ? {...produtoExistente, qtd: produtoExistente.qtd - 1} : x)
+//       );
+      
+//     }}
+// };     
+//fim do carrinho 
+
+  // OnChangeValorMin = (event) => {
+  //   const valorProduto = event.target.value;
+  //   const filtroValores = arrayProdutos.filter(
+  //     (valor) => valor.preco >= valorProduto  && valorProduto <= this.state.inputValorMax
+  //   );
+
+  //   this.setState({
+  //     inputValorMin: valorProduto,
+  //     produtos: valorProduto < 0 ? filtroValores : arrayProdutos,
+  //   });
+  // };
+
 
   onChangeRangeValor = (event) => {
     const valorProduto = event.target.value;
@@ -125,9 +163,11 @@ export class App extends React.Component {
   }
 
   render() {
-    console.log("arrayProdutos", arrayProdutos[0].nome);
+//    console.log("arrayProdutos", arrayProdutos[0].nome);
 
-    return (
+
+        return (
+          
       <ConteudoApp>
         <Filtros
           valorMinimo={this.state.inputValorMin}
@@ -167,8 +207,9 @@ export class App extends React.Component {
             })}
           </GridComProdutos>
         </SecaoConteudoGeral>
-        <Cart />
-      </ConteudoApp>
+        {/* <Cart onAdd={onAdd} onRemover={onRemover} itensCarrinho={Carrinho}></Cart>  //carrinho                */}
+        <Cart/>          
+      </ConteudoApp> 
     );
   }
 }
