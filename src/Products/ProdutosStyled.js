@@ -9,12 +9,21 @@ export const CardContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   background-color: #d4d4d4;
-  height: 50vh;
+  height: 100%;
 
   img {
     margin-top: 10px;
     max-height: 50%;
-    max-width: 90%;
+    max-width: 70%;
+    border-radius: 10px;
+    box-shadow: 1px 1px 20px grey, -1px 1px 40px grey;
+
+    :hover {
+      -webkit-transform: scale(1.1);
+      /* transform: scale(1.1); */
+      transition: 0.2s ease-in-out;
+      box-shadow: none;
+    }
   }
 `;
 
@@ -26,6 +35,8 @@ export const CardInfo = styled.div`
   p {
     margin: 10px 0;
     text-align: center;
+    font-weight: bold;
+    font-size: .8rem;
   }
 `;
 

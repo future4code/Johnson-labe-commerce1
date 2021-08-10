@@ -8,6 +8,8 @@ flex-direction:column;
 export const ConteudoApp = styled.div`
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
+
+
 `;
 
 export const HeaderQtdOrdProdutos = styled.div`
@@ -29,6 +31,7 @@ export const GridComProdutos = styled.div`
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   padding: 16px;
+  
 `;
 
 export const Select = styled.select`

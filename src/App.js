@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Cart from "./Cart/Cart";
+import Carrinho from "./Carrinho/Carrinho";
 import ProductCard from "./Products/Produtos";
 import Filtros from "./Filters/Filtros";
 import {
@@ -59,50 +59,20 @@ const arrayProdutos = [
 ];
 
 export class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      produtos: [...arrayProdutos],
+      inputValorMin: "",
+      inputValorMax: "",
+      inputNomeProduto: "",
+      caroBarato: "",
   
-  state = {
-    produtos: [...arrayProdutos],
-    inputValorMin: "",
-    inputValorMax: "",
-    inputNomeProduto: "",
-    caroBarato: "",
-  };
+      carrinho:[],
+    };
 
-
-  // carrinho
-//   Carrinho = (itensCarrinho, setItensCarrinho) =>{ 
-//   onAdd = (produto) =>{
-//     const produtoExistente = itensCarrinho.find(x =>x.id === produto.id);
-//     if(produtoExistente){
-//       setItensCarrinho(itensCarrinho.map(x => x.id === produto.id ? {...produtoExistente, qtd: produtoExistente.qtd +1} : x)
-//       ); 
-//     } else{
-//       setItensCarrinho([...itensCarrinho, {...produto, qtd: 1} ])
-//     } 
-//   };
-//   onRemover = (produto) =>{
-//     const produtoExistente = itensCarrinho.find((x)=> x.id === produto.id);
-//     if (produtoExistente.qtd === 1){
-//       setItensCarrinho(itensCarrinho.filter((x) => x.id !== produto.id));
-//     }else{
-//       setItensCarrinho(itensCarrinho.map(x => x.id === produto.id ? {...produtoExistente, qtd: produtoExistente.qtd - 1} : x)
-//       );
-      
-//     }}
-// };     
-//fim do carrinho 
-
-  // OnChangeValorMin = (event) => {
-  //   const valorProduto = event.target.value;
-  //   const filtroValores = arrayProdutos.filter(
-  //     (valor) => valor.preco >= valorProduto  && valorProduto <= this.state.inputValorMax
-  //   );
-
-  //   this.setState({
-  //     inputValorMin: valorProduto,
-  //     produtos: valorProduto < 0 ? filtroValores : arrayProdutos,
-  //   });
-  // };
+    this.adicionaAoCarrinho = this.adicionaAoCarrinho.bind(this)
+  }
 
 
   onChangeRangeValor = (event) => {
@@ -162,8 +132,13 @@ export class App extends React.Component {
     });
   }
 
+
+  adicionaAoCarrinho(produto) {
+    debugger
+    this.setState({ carrinho: [...this.state.carrinho, produto]})
+  }
+
   render() {
-//    console.log("arrayProdutos", arrayProdutos[0].nome);
 
 
         return (
@@ -181,8 +156,8 @@ export class App extends React.Component {
           <Titulo></Titulo>
           <HeaderQtdOrdProdutos>
             <img src={Logo}></img>
-            <label>
               <p>Quantidade de produtos: {this.state.produtos.length}</p>
+            <label>
               Ordenar preços:
               <Select
                 value={this.state.caroBarato}
@@ -199,6 +174,9 @@ export class App extends React.Component {
             {this.state.produtos.map((produto) => {
               return (
                 <ProductCard
+                  adicionaAoCarrinho={this.adicionaAoCarrinho}
+                  todosProdutos={produto}
+                  idProduto={produto.id}
                   imagemProduto={produto.imagem}
                   nomeProduto={produto.nome}
                   precoProduto={produto.preco}
@@ -207,11 +185,11 @@ export class App extends React.Component {
             })}
           </GridComProdutos>
         </SecaoConteudoGeral>
-        {/* <Cart onAdd={onAdd} onRemover={onRemover} itensCarrinho={Carrinho}></Cart>  //carrinho                */}
-        <Cart/>          
+        <Carrinho produtos={this.state.carrinho}/>          
       </ConteudoApp> 
     );
   }
 }
+
 
 export default App;
